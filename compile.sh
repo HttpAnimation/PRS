@@ -11,7 +11,7 @@ build_folder="Builds/$current_datetime"
 mkdir -p "$build_folder"
 
 # Compile server.c and client.c into the build folder
-gcc server.c -o "$build_folder/server"
+gcc server.c -o "$build_folder/PRS-Server"
 gcc -o "$build_folder/client" client.c `pkg-config --cflags --libs gtk+-3.0`
 
 # Copy server.c and client.c into the build folder
