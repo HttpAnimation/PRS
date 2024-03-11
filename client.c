@@ -8,18 +8,25 @@
 #define PORT 8080
 #define MAXLINE 1024
 
-GtkWidget *entry;
 int sockfd;
 
-void send_command(GtkWidget *widget, gpointer data) {
-    const gchar *text = gtk_entry_get_text(GTK_ENTRY(entry));
-    sendto(sockfd, text, strlen(text), MSG_CONFIRM, NULL, 0);
+void send_command(const char *command) {
+    sendto(sockfd, command, strlen(command), MSG_CONFIRM, NULL, 0);
+}
+
+void pause_audio(GtkWidget *widget, gpointer data) {
+    send_command("pause");
+}
+
+void play_audio(GtkWidget *widget, gpointer data) {
+    send_command("play");
 }
 
 int main(int argc, char *argv[]) {
     GtkWidget *window;
-    GtkWidget *button;
-    GtkWidget *vbox;
+    GtkWidget *pause_button;
+    GtkWidget *play_button;
+    GtkWidget *hbox;
 
     struct sockaddr_in servaddr;
 
@@ -44,16 +51,16 @@ int main(int argc, char *argv[]) {
 
     g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
 
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-    gtk_container_add(GTK_CONTAINER(window), vbox);
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
+    gtk_container_add(GTK_CONTAINER(window), hbox);
 
-    entry = gtk_entry_new();
-    gtk_entry_set_text(GTK_ENTRY(entry), "Enter 'pause' or 'play'");
-    gtk_box_pack_start(GTK_BOX(vbox), entry, TRUE, TRUE, 0);
+    pause_button = gtk_button_new_with_label("Pause");
+    g_signal_connect(pause_button, "clicked", G_CALLBACK(pause_audio), NULL);
+    gtk_box_pack_start(GTK_BOX(hbox), pause_button, TRUE, TRUE, 0);
 
-    button = gtk_button_new_with_label("Send Command");
-    g_signal_connect(button, "clicked", G_CALLBACK(send_command), NULL);
-    gtk_box_pack_start(GTK_BOX(vbox), button, TRUE, TRUE, 0);
+    play_button = gtk_button_new_with_label("Play");
+    g_signal_connect(play_button, "clicked", G_CALLBACK(play_audio), NULL);
+    gtk_box_pack_start(GTK_BOX(hbox), play_button, TRUE, TRUE, 0);
 
     gtk_widget_show_all(window);
 
