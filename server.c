@@ -7,6 +7,14 @@
 #define PORT 8080
 #define MAXLINE 1024
 
+void pauseAudio() {
+    system("pactl suspend-sink 0 1");
+}
+
+void resumeAudio() {
+    system("pactl suspend-sink 0 0");
+}
+
 int main() {
     int sockfd;
     char buffer[MAXLINE];
@@ -44,10 +52,10 @@ int main() {
         // Handle pause and play commands
         if (strcmp(buffer, "pause") == 0) {
             printf("Audio paused\n");
-            // Your code to pause audio playback goes here
+            pauseAudio();
         } else if (strcmp(buffer, "play") == 0) {
             printf("Audio resumed\n");
-            // Your code to resume audio playback goes here
+            resumeAudio();
         }
     }
 
