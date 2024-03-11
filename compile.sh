@@ -17,5 +17,10 @@ gcc client.c -o "$build_folder/client"
 # Create a Version.ini file with the current date and time
 echo "$current_datetime" > "$build_folder/Version.ini"
 
+# Create README file
+readme_file="$build_folder/README.txt"
+echo "Build created at: $current_datetime" > "$readme_file"
+echo "This folder contains builds for server and client programs." >> "$readme_file"
+
 # Print the path to the build folder
 echo "Builds created at: $build_folder"
