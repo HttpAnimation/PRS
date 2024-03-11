@@ -12,7 +12,7 @@ mkdir -p "$build_folder"
 
 # Compile server.c and client.c into the build folder
 gcc server.c -o "$build_folder/server"
-gcc client.c -o "$build_folder/client"
+gcc client.c -o "$build_folder/client `pkg-config --cflags --libs gtk+-3.0`"
 
 # Copy server.c, client.c and basecompile.sh into the build folder
 cp basecompile.sh "$build_folder/basecompile.sh"
