@@ -14,7 +14,8 @@ mkdir -p "$build_folder"
 gcc server.c -o "$build_folder/server"
 gcc client.c -o "$build_folder/client"
 
-# Copy server.c and client.c into the build folder
+# Copy server.c, client.c and basecompile.sh into the build folder
+cp basecompile.sh "$build_folder/basecompile.sh"
 cp server.c "$build_folder/server.c"
 cp client.c "$build_folder/client.c"
 
