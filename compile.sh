@@ -10,10 +10,12 @@ current_datetime=$(date +'%Y-%m-%d_%H-%M-%S')
 build_folder="Builds/$current_datetime"
 mkdir -p "$build_folder"
 
-# Compile client.c with GTK+-3.0 libraries
+# Compile server.c and client.c into the build folder
+gcc server.c -o "$build_folder/server"
 gcc -o "$build_folder/client" client.c `pkg-config --cflags --libs gtk+-3.0`
 
-# Copy client.c into the build folder
+# Copy server.c and client.c into the build folder
+cp server.c "$build_folder/server.c"
 cp client.c "$build_folder/client.c"
 
 # Create a Version.ini file with the current date and time
@@ -22,7 +24,7 @@ echo "$current_datetime" > "$build_folder/Version.ini"
 # Create README file
 readme_file="$build_folder/README.txt"
 echo "Build created at: $current_datetime" > "$readme_file"
-echo "This folder contains builds for the client program using GTK+-3.0." >> "$readme_file"
+echo "This folder contains builds for the server and client programs." >> "$readme_file"
 
 # Print the path to the build folder
 echo "Builds created at: $build_folder"
