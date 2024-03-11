@@ -1,2 +1,2 @@
-gcc server.c -o
+gcc server.c -o PRS-Server
 gcc client.c -o
