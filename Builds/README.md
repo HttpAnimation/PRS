@@ -1,2 +1,2 @@
 # PRS/stable/Builds
-A template I use
+This folder hosts all the builds from day one.
