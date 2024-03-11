@@ -1,2 +1,2 @@
-# MainTemplate/stable
+# PRS/stable
 A template I use
